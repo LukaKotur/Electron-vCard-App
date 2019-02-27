@@ -1,0 +1,34 @@
+.copyBtn {
+    cursor: pointer;
+    font-family: FontAwesome;
+}
+
+#openFile{
+    margin-bottom: 15px;
+}
+.copyBtn:hover i {
+    color:rgb(37, 92, 241);
+}
+
+#drag-file {
+    color:000;
+    text-align: center;
+    width: 100%;
+    height: 25%;
+    border: 2px dotted #000;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+#drag-file p {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.infoMessage {
+    transition: all 0.3s ease-in-out;
+}

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Stellar Helper</title>
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/jqueryui/datepicker.css">
+  <link rel="stylesheet" href="../assets/jqueryui/jquery-ui.css">
+  <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.18/jquery.datetimepicker.css">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container" style="margin-top:25px">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="pills-vcard-tab" data-toggle="pill" href="#pills-vcard" role="tab" aria-controls="pills-home"
+          aria-selected="true">
+          <i class="fas fa-id-card"></i> vCard Viewer</a>
+      </li>
+      <li class="nav-item ">
+        <a class="nav-link " id="pills-email-tab" data-toggle="pill" href="#pills-email" role="tab" aria-controls="pills-profile"
+          aria-selected="false">
+          <i class="fas fa-envelope"></i> Email Generator</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="tab-content container" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-vcard" role="tabpanel" aria-labelledby="pills-vcard-tab">
+      <div class="row">
+        <div id="drag-file">
+          <p>Drag the file here</p>
+        </div>
+      </div>
+      <div class="row">
+        <div style="text-align:center;">
+          <button id="openFile" class="btn btn-primary" onclick="openFile();">Or open with filechooser</button>
+        </div>
+      </div>
+
+      <div class="row infoMessage">
+        <p class="alert-success hidden" id="copyMsg" style="padding:5px;"></p>
+      </div>
+
+      <div class="row">
+        <table class="table table-hover" id="table-info">
+          <thead>
+            <tr>
+              <th scope="col">Full Name
+                <a class="copyBtn" id="copyFN">
+                  <i class="fas fa-copy"></i>
+                </a>
+              </th>
+              <th scope="col">Address
+                <a class="copyBtn" id="copyADR">
+                  <i class="fas fa-copy"></i>
+                </a>
+              </th>
+              <th scope="col">Phone(s)
+                <a class="copyBtn" id="copyTEL">
+                  <i class="fas fa-copy"></i>
+                </a>
+              </th>
+              <th scope="col">Email
+                <a class="copyBtn" id="copyEMAIL">
+                  <i class="fas fa-copy"></i>
+                </a>
+              </th>
+              <th scope="col">DOB
+                <a class="copyBtn" id="copyDOB">
+                  <i class="fas fa-copy"></i>
+                </a>
+              </th>
+              <th scope="col">Notes
+                <a class="copyBtn" id="copyNOTES">
+                  <i class="fas fa-copy"></i>
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody id="tbody-info">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="tab-pane fade" id="pills-email" role="tabpanel" aria-labelledby="pills-email-tab">
+      <form class="container">
+        <div class="form-group">
+          <label for="inputName">Name:</label>
+          <input type="text" class="form-control" id="inputName" aria-describedby="" placeholder="Enter name">
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="checkboxFC" checked="true">
+          <label class="form-check-label" for="checkboxFC">
+            Has FC?
+          </label>
+        </div>
+        <div class="form-group" id="fcDate">
+          <label for="inputFC">FC Date:</label>
+          <input type="text" class="form-control ll-skin-nigran" id="inputFC" placeholder="FC date">
+        </div>
+        <div class="form-group">
+          <label for="IMG1src">Image 1 URL:</label>
+          <input type="text" class="form-control" id="IMG1src" placeholder="ex.https://drive.google.com/file/d/1IUx7AnRV4B8VA_BbAbyDHJe5Oyj2pcQV/view?usp=sharing">
+          <small id="emailHelp" class="form-text text-muted">From google drive select the file -> right click -> share -> copy the url, it will look like this, only the bold
+            text will be different
+            <br>
+            <i>"(https://drive.google.com/file/d/
+              <strong>1IUx7AnRV4B8VA_BbAbyDHJe5Oyj2pcQV</strong>/view?usp=sharing)"</i>
+          </small>
+        </div>
+        <div class="form-group">
+          <label for="IMG2src">Image 2 URL:</label>
+          <input type="text" class="form-control" id="IMG2src" placeholder="ex.https://drive.google.com/file/d/1IUx7AnRV4B8VA_BbAbyDHJe5Oyj2pcQV/view?usp=sharing">
+        </div>
+        <div class="form-group">
+          <label for="IMG3src">Image 3 URL:</label>
+          <input type="text" class="form-control" id="IMG3src" placeholder="ex.https://drive.google.com/file/d/1IUx7AnRV4B8VA_BbAbyDHJe5Oyj2pcQV/view?usp=sharing">
+        </div>
+        <button type="button" class="btn btn-success" id="GenerateEmail">
+          <i class="far fa-envelope"></i> Generate</button>
+        <button type="button" class="btn btn-primary" id="openFolder">
+          <i class="far fa-folder-open"></i> Generated Emails</button>
+      </form>
+    </div>
+  </div>
+
+<!-- API Asana TBD if it's gonna be made or not
+  <button id="testAPI" class="btn btn-outline-dark">Click me</button>
+
+  <table class="table table-hover" id="table-asana">
+    <thead>
+      <tr>
+        <th scope="col">ID
+
+        </th>
+        <th scope="col">Project Name
+        </th>
+      </tr>
+    </thead>
+    <tbody id="tbody-asana">
+
+    </tbody>
+  </table> -->
+
+
+  <script>
+    window.jQuery = window.$ = require('jquery');
+    $(function () {
+      jQuery('#inputFC').datetimepicker({
+        format: 'm/d/y D h:i a',
+        validateOnBlur: false
+      });
+    });
+  </script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.18/jquery.datetimepicker.full.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script src="index.js"></script>
+  <script src="generateEmail.js"></script>
+
+</body>
+
+</html>
